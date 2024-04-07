@@ -17,7 +17,7 @@ interface IHandGestureLogic {
   canvasEl: Ref<any>
 }
 
-function useLogic({videoElement, canvasEl}: IHandGestureLogic) {
+function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
   const hands = useRef<any>(null);
   const camera = useRef<any>(null);
   const handsGesture = useRef<any>([]);
@@ -117,4 +117,4 @@ function useLogic({videoElement, canvasEl}: IHandGestureLogic) {
   return { maxVideoHeight, maxVideoWidth, canvasEl, videoElement };
 }
 
-export default useLogic;
+export default useGestureRecognition;
