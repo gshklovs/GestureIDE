@@ -4,7 +4,10 @@ import useGestureRecognition from "./components/hands-capture/hooks";
 function App() {
   const videoElement = useRef<any>()
   const canvasEl = useRef<any>()
-  const { maxVideoWidth, maxVideoHeight } = useGestureRecognition({videoElement, canvasEl});
+  const { maxVideoWidth, maxVideoHeight } = useGestureRecognition({
+    videoElement,
+    canvasEl
+  });
 
   return (
     <div

@@ -85,9 +85,7 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
 
   const loadHands = () => {
     hands.current = new Hands({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-      },
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
     });
     hands.current.setOptions({
       maxNumHands: 2,
@@ -98,8 +96,9 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
     hands.current.onResults(onResults);
   };
 
+
   useEffect(() => {
-    async function initCamara() {
+    (async function initCamara() {
       camera.current = new Camera(videoElement.current, {
         onFrame: async () => {
           await hands.current.send({ image: videoElement.current });
@@ -108,9 +107,8 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
         height: maxVideoHeight,
       });
       camera.current.start();
-    }
+    })()
 
-    initCamara();
     loadHands();
   }, []);
 
