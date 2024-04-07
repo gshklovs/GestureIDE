@@ -26,8 +26,6 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
 
   async function onResults(results) {
     if (canvasEl.current) {
-      if (results.multiHandLandmarks.length) {
-      }
       const ctx = canvasEl.current.getContext('2d');
 
       ctx.save();
@@ -61,7 +59,6 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
               width: Math.max(...landmarksX) - Math.min(...landmarksX),
               height: Math.max(...landmarksY) - Math.min(...landmarksY),
               rotation: 0,
-              rectId: 13,
             },
             {
               fillColor: 'transparent',
@@ -95,7 +92,6 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
     });
     hands.current.onResults(onResults);
   };
-
 
   useEffect(() => {
     (async function initCamara() {
