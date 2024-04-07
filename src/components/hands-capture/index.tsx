@@ -1,8 +1,11 @@
-import React from 'react';
-import useLogic from './hooks/index';
+import { useRef } from 'react';
+import useGestureRecognition from './hooks/index';
 
 function HandsCapture() {
-  const { videoElement, maxVideoWidth, maxVideoHeight, canvasEl } = useLogic();
+  const videoElement = useRef<any>()
+  const canvasEl = useRef<any>()
+  const { maxVideoWidth, maxVideoHeight } = useGestureRecognition({videoElement, canvasEl});
+
   return (
     <div
       style={{
@@ -18,7 +21,11 @@ function HandsCapture() {
         playsInline
         ref={videoElement}
       />
-      <canvas ref={canvasEl} width={maxVideoWidth} height={maxVideoHeight} />
+      <canvas 
+        ref={canvasEl} 
+        width={maxVideoWidth} 
+        height={maxVideoHeight} 
+        />
     </div>
   );
 }

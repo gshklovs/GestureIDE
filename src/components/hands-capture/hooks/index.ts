@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { Ref, useEffect, useRef } from 'react';
 import { Camera } from '@mediapipe/camera_utils';
 import {
   drawConnectors,
@@ -12,11 +12,14 @@ import CONFIGS from '../../../../constants';
 const maxVideoWidth = 960;
 const maxVideoHeight = 540;
 
-function useLogic() {
-  const videoElement = useRef<any>(null);
+interface IHandGestureLogic {
+  videoElement: Ref<any>
+  canvasEl: Ref<any>
+}
+
+function useLogic({videoElement, canvasEl}: IHandGestureLogic) {
   const hands = useRef<any>(null);
   const camera = useRef<any>(null);
-  const canvasEl = useRef(null);
   const handsGesture = useRef<any>([]);
 
   const { processLandmark } = useKeyPointClassifier();
