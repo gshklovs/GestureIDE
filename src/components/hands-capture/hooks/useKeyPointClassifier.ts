@@ -67,15 +67,15 @@ function useKeyPointClassifier() {
     return handSignId[0];
   };
 
-  const loadModel = async () => {
-    model.current = await tf.loadGraphModel(
-      `/tf-models/key-point-classifier/model.json`
-    );
-  };
 
   useEffect(() => {
-    loadModel();
+    (async function loadModel () {
+      model.current = await tf.loadGraphModel(
+        `/tf-models/key-point-classifier/model.json`
+      );
+    })()
   }, []);
+
   return { processLandmark };
 }
 

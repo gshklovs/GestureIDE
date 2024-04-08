@@ -33,11 +33,9 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
       ctx.drawImage(results.image, 0, 0, maxVideoWidth, maxVideoHeight);
 
       if (results.multiHandLandmarks) {
-        for (const [index, landmarks] of results.multiHandLandmarks.entries()) {
-          processLandmark(landmarks, results.image).then(
-            (val) => (handsGesture.current[index] = val)
-          );
-          console.log('gesture');
+        // Runs once for every hand
+        for (const [index, landmarks] of results.multiHandLandmarks.entries()) { 
+          processLandmark(landmarks, results.image).then((val) => (handsGesture.current[index] = val));
           const landmarksX = landmarks.map((landmark) => landmark.x);
           const landmarksY = landmarks.map((landmark) => landmark.y);
           ctx.fillStyle = '#ff0000';
@@ -47,15 +45,9 @@ function useGestureRecognition({videoElement, canvasEl}: IHandGestureLogic) {
             maxVideoWidth * Math.min(...landmarksX),
             maxVideoHeight * Math.min(...landmarksY) - 15
           );
-          drawRectangle(
-            ctx,
-            {
-              xCenter:
-                Math.min(...landmarksX) +
-                (Math.max(...landmarksX) - Math.min(...landmarksX)) / 2,
-              yCenter:
-                Math.min(...landmarksY) +
-                (Math.max(...landmarksY) - Math.min(...landmarksY)) / 2,
+          drawRectangle(ctx,{
+              xCenter: Math.min(...landmarksX) + (Math.max(...landmarksX) - Math.min(...landmarksX)) / 2,
+              yCenter: Math.min(...landmarksY) + (Math.max(...landmarksY) - Math.min(...landmarksY)) / 2,
               width: Math.max(...landmarksX) - Math.min(...landmarksX),
               height: Math.max(...landmarksY) - Math.min(...landmarksY),
               rotation: 0,
