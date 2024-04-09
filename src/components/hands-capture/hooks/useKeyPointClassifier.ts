@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Landmark, Results } from '@mediapipe/hands';
+
 import * as tf from '@tensorflow/tfjs';
+
 import _ from 'lodash';
 
 const calcLandmarkList = (image, landmarks) => {
@@ -51,13 +53,11 @@ function useKeyPointClassifier() {
   const model = useRef<any>();
 
   const keyPointClassifier = async (landmarkList) => {
-    const result = await model.current
+    return await model.current
       .execute(tf.tensor2d([landmarkList]))
       .squeeze()
       .argMax()
       .data();
-
-    return result;
   };
 
   const processLandmark = async (handLandmarks: Results, image) => {
